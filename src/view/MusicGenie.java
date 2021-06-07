@@ -49,6 +49,7 @@ public class MusicGenie extends JFrame {
 	private JButton btnSearch;
 	private JMenuItem mntmAbout;
 	public SearchResults searchresult;
+	private JMenuItem mntmExit;
 
 	/**
 	 * Launch the application.
@@ -99,7 +100,7 @@ public class MusicGenie extends JFrame {
 			JMenu mnFile = new JMenu("File");
 			MenBar_Genie.add(mnFile);
 			
-			JMenuItem mntmExit = new JMenuItem("Exit");
+			mntmExit = new JMenuItem("Exit");			
 			mnFile.add(mntmExit);
 			
 			JMenu mnEdit = new JMenu("Edit");
@@ -288,6 +289,14 @@ public class MusicGenie extends JFrame {
 				About about = new About();
 				about.setModal(true);
 				about.setVisible(true);
+				}
+			});
+			
+			
+			mntmExit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+					
 				}
 			});
 		}
