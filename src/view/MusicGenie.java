@@ -56,10 +56,8 @@ public class MusicGenie extends JFrame {
 	 */
 	public static void main(String[] args) {
 		
-		System.out.println("testing1234");
 		
 		File_Reader.ReadSongs();
-		//File_Reader.PrintSongs();
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
