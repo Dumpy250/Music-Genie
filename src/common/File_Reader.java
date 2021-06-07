@@ -12,9 +12,7 @@ public class File_Reader {
 	public static FileInputStream fileByteStream = null;
 	public static Scanner inFS = null;
 	public static PrintWriter outFS = null;
-	//public static FileOutputStream fileStream = null;
 	
-	//adding a comment
 	public static void ReadSongs() {
 		
 		try {
@@ -30,7 +28,6 @@ public class File_Reader {
 		 song1.RlsDate = inFS.next();
 		 song1.songName = inFS.next();
 		 SongList.add(song1);
-		 //new comment here testing for GitBash
 		}				 			
 		fileByteStream.close();
 		}
