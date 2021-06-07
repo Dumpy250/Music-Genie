@@ -54,6 +54,8 @@ public class About extends JDialog {
 		JLabel lblNewLabel = new JLabel("Project: Music Genie");
 		
 		JLabel lblNewLabel_1 = new JLabel("Class: SENG 102");
+		
+		JLabel lblNewLabel_2 = new JLabel("Email: Bashamc@ferris.edu");
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -63,7 +65,8 @@ public class About extends JDialog {
 						.addComponent(lblAuthor)
 						.addComponent(lblVersion)
 						.addComponent(lblNewLabel)
-						.addComponent(lblNewLabel_1))
+						.addComponent(lblNewLabel_1)
+						.addComponent(lblNewLabel_2))
 					.addContainerGap(291, Short.MAX_VALUE))
 		);
 		gl_contentPanel.setVerticalGroup(
@@ -77,7 +80,9 @@ public class About extends JDialog {
 					.addComponent(lblNewLabel)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblNewLabel_1)
-					.addContainerGap(151, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblNewLabel_2)
+					.addContainerGap(126, Short.MAX_VALUE))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 	}
