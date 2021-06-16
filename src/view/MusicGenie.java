@@ -50,6 +50,7 @@ public class MusicGenie extends JFrame {
 	private JMenuItem mntmAbout;
 	public SearchResults searchresult;
 	private JMenuItem mntmExit;
+	private JLabel Version_Label;
 
 	/**
 	 * Launch the application.
@@ -123,6 +124,8 @@ public class MusicGenie extends JFrame {
 			pnlSearch.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Search", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			
 			JLabel lblWelcome = new JLabel("Welcome to Music Genie. In the List from Source below you will find contents of a txt file or cvs file that contains music information. As the user you may search through the contents to find out more detials.");
+			
+			Version_Label = new JLabel("New label");
 			GroupLayout groupLayout = new GroupLayout(getContentPane());
 			groupLayout.setHorizontalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
@@ -130,7 +133,7 @@ public class MusicGenie extends JFrame {
 						.addGap(19)
 						.addComponent(lbl_List)
 						.addGap(18)
-						.addComponent(scrollPane_List, GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+						.addComponent(scrollPane_List, GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
 						.addGap(18)
 						.addComponent(pnlSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGap(92))
@@ -138,6 +141,9 @@ public class MusicGenie extends JFrame {
 						.addGap(39)
 						.addComponent(lblWelcome)
 						.addContainerGap(39, Short.MAX_VALUE))
+					.addGroup(groupLayout.createSequentialGroup()
+						.addComponent(Version_Label)
+						.addContainerGap(1019, Short.MAX_VALUE))
 			);
 			groupLayout.setVerticalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
@@ -154,7 +160,8 @@ public class MusicGenie extends JFrame {
 							.addGroup(groupLayout.createSequentialGroup()
 								.addGap(74)
 								.addComponent(pnlSearch, GroupLayout.PREFERRED_SIZE, 232, GroupLayout.PREFERRED_SIZE)))
-						.addContainerGap(198, Short.MAX_VALUE))
+						.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+						.addComponent(Version_Label))
 			);
 			
 			JLabel lblSearchBand = new JLabel("Search by Band or Artist");
