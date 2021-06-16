@@ -125,7 +125,7 @@ public class MusicGenie extends JFrame {
 			
 			JLabel lblWelcome = new JLabel("Welcome to Music Genie. In the List from Source below you will find contents of a txt file or cvs file that contains music information. As the user you may search through the contents to find out more detials.");
 			
-			Version_Label = new JLabel("New label");
+			Version_Label = new JLabel("Version 0.1");
 			GroupLayout groupLayout = new GroupLayout(getContentPane());
 			groupLayout.setHorizontalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
