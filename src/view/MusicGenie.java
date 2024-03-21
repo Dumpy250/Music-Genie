@@ -3,8 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import common.File_Reader;
@@ -12,22 +11,11 @@ import common.Song;
 
 import java.awt.Toolkit;
 import java.awt.SystemColor;
-import javax.swing.UIManager;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JScrollBar;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JScrollPane;
-import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
@@ -36,7 +24,6 @@ import javax.swing.border.TitledBorder;
 
 
 import java.awt.Color;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -44,17 +31,16 @@ import java.util.function.Predicate;
 
 public class MusicGenie extends JFrame {
 	private JTextArea taSource;
-	public JTextArea taBand;
-	private JTextArea taGenre;
-	private JTextArea taRelease;
-	private JTextArea taSongname;
+	private JTextField tfBand;
+	private JComboBox<String> cbGenre;
+	private JTextField tfRelease;
+	private JTextField tfSongName;
 	private JButton btnSearch;
 	private JMenuItem mntmAbout;
 	public SearchResults searchresult;
 	private JMenuItem mntmExit;
-	private JLabel Version_Label;
 
-	/**
+    /**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
@@ -126,8 +112,8 @@ public class MusicGenie extends JFrame {
 			pnlSearch.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Search", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			
 			JLabel lblWelcome = new JLabel("Welcome to Music Genie. In the List from Source below you will find contents of a txt file or cvs file that contains music information. As the user you may search through the contents to find out more detials.");
-			
-			Version_Label = new JLabel("Version 0.1");
+
+            JLabel version_Label = new JLabel("Version 0.1");
 			GroupLayout groupLayout = new GroupLayout(getContentPane());
 			groupLayout.setHorizontalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
@@ -144,7 +130,7 @@ public class MusicGenie extends JFrame {
 						.addComponent(lblWelcome)
 						.addContainerGap(39, Short.MAX_VALUE))
 					.addGroup(groupLayout.createSequentialGroup()
-						.addComponent(Version_Label)
+						.addComponent(version_Label)
 						.addContainerGap(1019, Short.MAX_VALUE))
 			);
 			groupLayout.setVerticalGroup(
@@ -163,7 +149,7 @@ public class MusicGenie extends JFrame {
 								.addGap(74)
 								.addComponent(pnlSearch, GroupLayout.PREFERRED_SIZE, 232, GroupLayout.PREFERRED_SIZE)))
 						.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-						.addComponent(Version_Label))
+						.addComponent(version_Label))
 			);
 			
 			JLabel lblSearchBand = new JLabel("Search by Band or Artist");
@@ -174,17 +160,25 @@ public class MusicGenie extends JFrame {
 			
 			JLabel lblSearchSongname = new JLabel("Search by Song name");
 			
-			taBand = new JTextArea();
-			taBand.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			tfBand = new JTextField();
+			tfBand.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+
+			// Define an array of predefined genres
+
+			cbGenre = new JComboBox<>();
+			String[] predefinedGenres = {"Rock", "Djent", "Hip-Hop", "Jazz", "Electronic", "Classical"};
+
+			// Populate the combo box with the predefined genres
+			for (String genre : predefinedGenres) {
+				cbGenre.addItem(genre);
+			}
+			cbGenre.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			
-			taGenre = new JTextArea();
-			taGenre.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			tfRelease = new JTextField();
+			tfRelease.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			
-			taRelease = new JTextArea();
-			taRelease.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-			
-			taSongname = new JTextArea();
-			taSongname.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			tfSongName = new JTextField();
+			tfSongName.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			btnSearch = new JButton("Search");
 			
 			GroupLayout gl_pnlSearch = new GroupLayout(pnlSearch);
@@ -200,10 +194,10 @@ public class MusicGenie extends JFrame {
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_pnlSearch.createParallelGroup(Alignment.LEADING)
 							.addComponent(btnSearch)
-							.addComponent(taBand, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-							.addComponent(taGenre, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-							.addComponent(taRelease, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-							.addComponent(taSongname, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE))
+							.addComponent(tfBand, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
+							.addComponent(cbGenre, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
+							.addComponent(tfRelease, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
+							.addComponent(tfSongName, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE))
 						.addContainerGap(50, Short.MAX_VALUE))
 			);
 			gl_pnlSearch.setVerticalGroup(
@@ -212,19 +206,19 @@ public class MusicGenie extends JFrame {
 						.addGap(35)
 						.addGroup(gl_pnlSearch.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblSearchBand)
-							.addComponent(taBand, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+							.addComponent(tfBand, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
 						.addGroup(gl_pnlSearch.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblSearchGenre)
-							.addComponent(taGenre, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+							.addComponent(cbGenre, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
 						.addGroup(gl_pnlSearch.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblSearchByRelease)
-							.addComponent(taRelease, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+							.addComponent(tfRelease, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
 						.addGroup(gl_pnlSearch.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblSearchSongname)
-							.addComponent(taSongname, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+							.addComponent(tfSongName, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addComponent(btnSearch)
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -252,7 +246,7 @@ public class MusicGenie extends JFrame {
 					searchresult = new SearchResults();
 
 					// If user types in nothing
-					if (taBand.getText().isEmpty() && taGenre.getText().isEmpty() && taRelease.getText().isEmpty() && taSongname.getText().isEmpty()) {
+					if (tfBand.getText().isEmpty() && cbGenre.getSelectedItem() != null && tfRelease.getText().isEmpty() && tfSongName.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "You must enter something to search.\nPlease try again..");
 						System.out.println("Search for nothing");
 						return;
@@ -260,18 +254,18 @@ public class MusicGenie extends JFrame {
 
 					// Prepare the predicates based on user input
 					ArrayList<Predicate<Song>> predicates = new ArrayList<>();
-					if (!taBand.getText().isEmpty()) {
-						String band = taBand.getText();
+					if (!tfBand.getText().isEmpty()) {
+						String band = tfBand.getText();
 						predicates.add(song -> song.getBand().equals(band));
 						System.out.println("Search for band");
 					}
-					if (!taGenre.getText().isEmpty()) {
-						String genre = taGenre.getText();
+					if (cbGenre.getSelectedItem() != null) {
+						String genre = cbGenre.getSelectedItem().toString();
 						predicates.add(song -> song.getGenre().equals(genre));
 						System.out.println("Search for genre");
 					}
-					if (!taRelease.getText().isEmpty()) {
-						String releaseDate = taRelease.getText();
+					if (!tfRelease.getText().isEmpty()) {
+						String releaseDate = tfRelease.getText();
 						predicates.add(song -> song.getRlsDate().equals(releaseDate));
 						System.out.println("Search for release date");
 					}
