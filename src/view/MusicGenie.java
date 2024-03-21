@@ -39,6 +39,8 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class MusicGenie extends JFrame {
 	private JTextArea taSource;
@@ -243,47 +245,44 @@ public class MusicGenie extends JFrame {
 			for(Song a : File_Reader.SongList){
 				   taSource.append(a + "\n");
 				}
-			
-			//Event starts when the user hits the search button//
+
+// Event starts when the user hits the search button
 			btnSearch.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
 					searchresult = new SearchResults();
-					
-					// if user types in nothing //
-					if (taBand.getText().equals("") && taGenre.getText().equals("") && taRelease.getText().equals("") && taSongname.getText().equals("")) {
-						
-						JOptionPane.showMessageDialog(null, "You must enter something to search."
-								+ "\n"
-								+ "Please try again..");	
+
+					// If user types in nothing
+					if (taBand.getText().isEmpty() && taGenre.getText().isEmpty() && taRelease.getText().isEmpty() && taSongname.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "You must enter something to search.\nPlease try again..");
 						System.out.println("Search for nothing");
 						return;
-						
 					}
-							
-					// if user types in band //				
-					if (!taBand.getText().equals("")) {
-						common.File_Reader.SearchSongs(taBand.getText(), searchresult);							
+
+					// Prepare the predicates based on user input
+					ArrayList<Predicate<Song>> predicates = new ArrayList<>();
+					if (!taBand.getText().isEmpty()) {
+						String band = taBand.getText();
+						predicates.add(song -> song.getBand().equals(band));
 						System.out.println("Search for band");
 					}
-					
-					
-					// if user types in band and genre//
-					if (!taBand.getText().equals("") && !taGenre.getText().equals("")) {						
-						common.File_Reader.SearchSongs(taBand.getText(),taGenre.getText(), searchresult);					
-						System.out.println("Search for band and genre");
+					if (!taGenre.getText().isEmpty()) {
+						String genre = taGenre.getText();
+						predicates.add(song -> song.getGenre().equals(genre));
+						System.out.println("Search for genre");
 					}
-					
-					// if user types in band, genre, and release date//
-					if (!taBand.getText().equals("") && !taGenre.getText().equals("") && !taRelease.getText().equals("")) {	
-						common.File_Reader.SearchSongs(taBand.getText(),taGenre.getText(), taRelease.getText(), searchresult);
-					
-						System.out.println("Search for band, genre, rlsdate");
+					if (!taRelease.getText().isEmpty()) {
+						String releaseDate = taRelease.getText();
+						predicates.add(song -> song.getRlsDate().equals(releaseDate));
+						System.out.println("Search for release date");
 					}
-					
+
+					// Perform search
+					if (!predicates.isEmpty()) {
+						File_Reader.SearchSongs(searchresult, predicates.toArray(new Predicate[0]));
+					}
+
 					searchresult.setModal(true);
 					searchresult.setVisible(true);
-
 				}
 			});
 			

@@ -1,10 +1,13 @@
 package common;
+import view.SearchResults;
+
 import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class File_Reader {
 	
@@ -38,46 +41,22 @@ public class File_Reader {
 					}
 	
 	}
-	
-	//if Only the band is being searched return the bands found//
-	public static void SearchSongs(String Band, view.SearchResults frame1) {
-		frame1.taSearchResult.setText(null);
-		for (Song a: SongList) {
-			if (a.Band.equals(Band)) {
-				System.out.println("results for same band name: " + a);
-				frame1.taSearchResult.append(a.toString() + "\n");
+
+	public static void SearchSongs(SearchResults frame, Predicate<Song>... predicates) {
+		frame.taSearchResult.setText(null);
+		for (Song song : SongList) {
+			boolean matches = true;
+			for (Predicate<Song> predicate : predicates) {
+				if (!predicate.test(song)) {
+					matches = false;
+					break;
 				}
-			}								
-	}
-	
-	//Search function for band and genre returns results//
-	public static void SearchSongs(String Band, String Genre, view.SearchResults frame1) {
-		frame1.taSearchResult.setText(null);
-		for (Song s: SongList) {
-			if (s.Band.equals(Band) && s.Genre.equals(Genre))  {
-				System.out.println("results for same band name: " + s);	
-				frame1.taSearchResult.append(s.toString() + "\n");			
 			}
-			
+			if (matches) {
+				System.out.println("Results found: " + song);
+				frame.taSearchResult.append(song.toString() + "\n");
 			}
-		
-	}
-	
-	//Search function for band, genre, and release date returns the results.
-	public static void SearchSongs(String Band, String Genre, String RlsDate, view.SearchResults frame1) {
-		frame1.taSearchResult.setText(null);		
-		System.out.println("Im here");
-		for (Song b: SongList) {
-			if (b.Band.equals(Band) && b.Genre.equals(Genre) && b.RlsDate.equals(RlsDate))  {
-				System.out.println("results for same band name: " + b);
-					
-			
-			
-				frame1.taSearchResult.append(b.toString() + "\n");
-			
-			}
-			
-			}	
+		}
 	}
 	
 	//Search function only for the songname//
