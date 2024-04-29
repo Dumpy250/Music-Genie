@@ -2,56 +2,47 @@ package common;
 
 
 public class Song {
+	private String Band;
+	private String Genre;
+	private String RlsDate;
+	private String songName;
 
-	public String Band;
-	public String Genre;
-	public String RlsDate;
-	public String songName;
-	public String songLink;
-	//@override 
+	@Override
 	public String toString() {
-		return "Band: " + this.Band + ", Genre: " + this.Genre + ", Release date: " + this.RlsDate
-				+ "SongName: " + this.songName + this.songLink;
+		return "Band: " + Band + ", Genre: " + Genre + ", Release Date: " + RlsDate + ", Song Name: " + songName;
 	}
 
+	// getters
 	public String getBand() {
 		return Band;
-	}
-
-	public void setBand(String band) {
-		Band = band;
 	}
 
 	public String getGenre() {
 		return Genre;
 	}
 
-	public void setGenre(String genre) {
-		Genre = genre;
-	}
-
 	public String getRlsDate() {
 		return RlsDate;
-	}
-
-	public void setRlsDate(String rlsDate) {
-		RlsDate = rlsDate;
 	}
 
 	public String getSongName() {
 		return songName;
 	}
 
+	// setters
+	public void setBand(String band) {
+		Band = band;
+	}
+
+	public void setGenre(String genre) {
+		Genre = genre;
+	}
+
+	public void setRlsDate(String rlsDate) {
+		RlsDate = rlsDate;
+	}
+
 	public void setSongName(String songName) {
 		this.songName = songName;
 	}
-
-	public String getSongLink() {
-		return songLink;
-	}
-
-	public void setSongLink(String songLink) {
-		this.songLink = songLink;
-	}
-
 }

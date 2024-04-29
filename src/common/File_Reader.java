@@ -23,15 +23,15 @@ public class File_Reader {
 		fileByteStream = new FileInputStream("List.txt");
 		
 		inFS = new Scanner(fileByteStream);
-		
-		while(inFS.hasNext()) {	
-		Song song1 = new Song();
-		 song1.Band = inFS.next();
-		 song1.Genre = inFS.next();
-		 song1.RlsDate = inFS.next();
-		 song1.songName = inFS.next();
-		 SongList.add(song1);
-		}				 			
+
+			while(inFS.hasNext()) {
+				Song song1 = new Song();
+				song1.setBand(inFS.next());
+				song1.setGenre(inFS.next());
+				song1.setRlsDate(inFS.next());
+				song1.setSongName(inFS.next());
+				SongList.add(song1);
+			}
 		fileByteStream.close();
 		}
 		catch (IOException Test1){
@@ -63,7 +63,7 @@ public class File_Reader {
 	public static void Searchname(String Songname, view.SearchResults frame1) {
 		frame1.taSearchResult.setText(null);
 		for (Song c: SongList) {
-			if (c.songName.equals(Songname))  {
+			if (c.getSongName().equals(Songname))  {
 				System.out.println("results for same band name: " + c);
 				frame1.taSearchResult.append(c.toString() + "\n");
 				}
