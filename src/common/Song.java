@@ -1,7 +1,7 @@
 package common;
 
 
-public class Song {
+public class Song implements ISong {
 	private String Band;
 	private String Genre;
 	private String RlsDate;
