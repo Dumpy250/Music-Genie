@@ -166,7 +166,7 @@ public class MusicGenie extends JFrame {
 		// Define an array of predefined genres
 
 		cbGenre = new JComboBox<>();
-		String[] predefinedGenres = {"Rock", "Djent", "Hip-Hop", "Jazz", "Electronic", "Classical"};
+		String[] predefinedGenres = {"Any", "Rock", "Djent", "Hip-Hop", "Jazz", "Electronic", "Classical"};
 
 		// Populate the combo box with the predefined genres
 		for (String genre : predefinedGenres) {
@@ -246,7 +246,10 @@ public class MusicGenie extends JFrame {
 				searchresult = new SearchResults();
 
 				// If user types in nothing
-				if (tfBand.getText().isEmpty() && cbGenre.getSelectedItem() != null && tfRelease.getText().isEmpty() && tfSongName.getText().isEmpty()) {
+				if (tfBand.getText().isEmpty()
+						&& "Any".equals(cbGenre.getSelectedItem())
+						&& tfRelease.getText().isEmpty()
+						&& tfSongName.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "You must enter something to search.\nPlease try again..");
 					System.out.println("Search for nothing");
 					return;
@@ -255,19 +258,28 @@ public class MusicGenie extends JFrame {
 				// Prepare the predicates based on user input
 				ArrayList<Predicate<ISong>> predicates = new ArrayList<>();
 				if (!tfBand.getText().isEmpty()) {
-					String band = tfBand.getText();
-					predicates.add(song -> song.getBand().equals(band));
+					String band = tfBand.getText().toLowerCase();
+					predicates.add(song -> song.getBand() != null
+							&& song.getBand().toLowerCase().contains(band));
 					System.out.println("Search for band");
 				}
-				if (cbGenre.getSelectedItem() != null) {
-					String genre = cbGenre.getSelectedItem().toString();
-					predicates.add(song -> song.getGenre().equals(genre));
+				if (cbGenre.getSelectedItem() != null && !"Any".equals(cbGenre.getSelectedItem())) {
+					String genre = cbGenre.getSelectedItem().toString().toLowerCase();
+					predicates.add(song -> song.getGenre() != null
+							&& song.getGenre().toLowerCase().contains(genre));
 					System.out.println("Search for genre");
 				}
 				if (!tfRelease.getText().isEmpty()) {
-					String releaseDate = tfRelease.getText();
-					predicates.add(song -> song.getRlsDate().equals(releaseDate));
+					String releaseDate = tfRelease.getText().toLowerCase();
+					predicates.add(song -> song.getRlsDate() != null
+							&& song.getRlsDate().toLowerCase().contains(releaseDate));
 					System.out.println("Search for release date");
+				}
+				if (!tfSongName.getText().isEmpty()) {
+					String songName = tfSongName.getText().toLowerCase();
+					predicates.add(song -> song.getSongName() != null
+							&& song.getSongName().toLowerCase().contains(songName));
+					System.out.println("Search for song name");
 				}
 
 				// Perform search
